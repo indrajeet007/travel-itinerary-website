@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+    <!--Import Google Icon Font-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    
+    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+
+    <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
+     <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+
+    <!-- Custom CSS -->
+    <link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}" />
+    
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+        $(document).ready(function() {
+
+            $('.dp').datepicker();
+        });
+
+    </script>
+    <script>
+        $(document).ready(function() {
+            // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+            $('#registerPage').modal();
+        });
+        $(document).ready(function() {
+            // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+            $('#travelDiary').modal();
+        });
+
+    </script>
+
+</head>
+
+<body>
+   
+    <script>
+        $(document).ready(function() {
+            $("#menu").sideNav();
+        });
+
+
+
+    </script>
+
+    <script>
+        var $win = $(window);
+
+        function checkScroll() {
+            if ($win.scrollTop() > 700) {
+                $win.off('scroll', checkScroll);
+                $('#menu').fadeIn(2000);
+            } else if (scrollTop() + $(this).innerHeight() >= this.scrollHeight) {
+
+                $win.off('scroll', checkScroll);
+                $('#menu').fadeOut(20);
+            }
+
+        }
+
+        $win.scroll(checkScroll);
+
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.tooltipped').tooltip({
+                delay: 50
+            });
+        });
+
+    </script>
+
+    <!-- Scripts for Travel Diary modal -->
+    <script>
+        //Date Picker
+        $(document).ready(function() {
+            $('.datepicker').pickadate({
+                selectMonths: true, // Creates a dropdown to control month
+                selectYears: 15, // Creates a dropdown of 15 years to control year,
+                today: 'Today',
+                clear: 'Clear',
+                close: 'Ok',
+                closeOnSelect: false // Close upon selecting a date,
+            });
+        });
+
+        //Time Picker
+        $(document).ready(function() {
+            $('.timepicker').pickatime({
+                default: 'now', // Set default time: 'now', '1:30AM', '16:30'
+                fromnow: 0, // set default time to * milliseconds from now (using with default = 'now')
+                twelvehour: false, // Use AM/PM or 24-hour format
+                donetext: 'OK', // text for done-button
+                cleartext: 'Clear', // text for clear-button
+                canceltext: 'Cancel', // Text for cancel-button
+                autoclose: false, // automatic close timepicker
+                ampmclickable: true, // make AM PM clickable
+                aftershow: function() {} //Function for after opening timepicker
+            });
+        });
+
+        //Scribble Pad Text Area
+        $(document).ready(function() {
+            $('#textarea1').val('New Text');
+            $('#textarea1').trigger('autoresize');
+        });
+
+        //Select Event Mood
+        $(document).ready(function() {
+            $('select').material_select();
+        });
+
+    </script>
+
+
+    <div id="welcomePage" class="container-fluid">
+
+        <div class="fixed-action-btn horizontal">
+            <a class="btn-floating btn-large red">
+      <i class="large material-icons">mode_edit</i>
+    </a>
+             <ul>
+                <!-- Diary Page -->
+                <li><a class="btn-floating red modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Travel Diary" href="#travelDiary"><i class="material-icons">chrome_reader_mode</i></a></li>
+
+                <!-- Register Page -->
+                <li><a class="btn-floating yellow darken-1 modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Register" href="#registerPage"><i class="material-icons">check_circle</i></a></li>
+
+                <!-- Login Page -->
+                <li><a class="btn-floating green modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Login" href="#loginPage"><i class="material-icons">motorcycle</i></a></li>
+
+                <!-- Bhadwasaurus Moment Page -->
+                <li><a class="btn-floating blue modal-trigger tooltipped" data-position="bottom" data-delay="50" data-tooltip="Kayko Machmach !" href="#travelDiary"><i class="material-icons">mood_bad</i></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="travelDiary" class="container modal modal-fixed-footer">
+        <div class="modal-content">
+            <div class="row">
+                <form class="col s12">
+                    <h1 style="text-align: center">DIARY ENTRY</h1>
+                    <h6 style="text-align: center; font-style: italic">Make it interesting !</h6>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">explore</i>
+                            <input placeholder="Placeholder" id="event_title" type="text" class="validate">
+                            <label for="first_name">Event Title</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">date_range</i>
+                            <input type="text" class="datepicker">
+                            <label for="event_date">Event Date</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">access_time</i>
+                            <input type="text" class="timepicker">
+                            <label for="event_time">Event Time</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">location_on</i>
+                            <input disabled value="I am not editable" id="disabled" type="text" class="validate">
+                            <label for="disabled">Event Location</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">mood</i>
+                            <select class="icons">
+      <option value="" disabled selected>Choose your option</option>
+      <!-- Add emoticons in data-icon for mood expressions -->
+      <option value="" data-icon="" class="left circle">Happy</option>
+      <option value="" data-icon="" class="left circle">Okay</option>
+      <option value="" data-icon="" class="left circle">Not Okay</option>
+    </select>
+                            <label for="event_mood">Images in select</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">access_time</i>
+                            <textarea id="event_text" class="materialize-textarea"></textarea>
+                            <label for="event_text">Scribble Pad</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="file-field input-field col s12">
+                            <div class="btn">
+                                <span>Images Upload</span>
+                                
+                                <input type="file" multiple>
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text" placeholder="Upload one or more files">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div>
+    </div>
+
+
+
+    <!-- Registeration Modal -->
+    <div id="registerPage" class="container modal modal-fixed-footer">
+        <div class="modal-content">
+            <div class="row">
+                <form class="col s12"  action="{ % 'register' % }" method="POST">{% csrf_token %}
+                                <h1 style="text-align: center">REGISTERATION FORM</h1>
+
+                    <h6 style="text-align: center; font-style: italic">Let's get going !</h6>
+
+                                <div class="row">
+                                    <div class="input-field col s12 required" id="id_username_container">
+                                        <i class="material-icons prefix">account_box</i><input id="id_username" name="username" type="text">
+                                        <label for="id_username">Username</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12 required" id="id_email_container">
+                                        <i class="material-icons prefix">email</i><input id="id_email" name="email" type="email">
+                                        <label for="id_email">Email Address</label>
+                                    </div>
+                                </div>
+
+                                 <div class="layout-row row">
+                                    <div class="col s12 m6">
+
+                                        <div class="row">
+                                            <div class="input-field col s12 required" id="id_password_container">
+                                                <i class="material-icons prefix">lock_open</i><input id="id_password" name="password" type="password">
+                                                <label for="id_password">Password</label>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 m6">
+
+                                        <div class="row">
+                                            <div class="input-field col s12 required" id="id_password_confirm_container">
+                                                <input id="id_password_confirm" name="password_confirm" type="password">
+                                                <label for="id_password_confirm">Confirm password</label>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                    <div class="row">
+                                    <div class="col s12">
+                                        <h5>Personal details</h5>
+
+                                        <div class="layout-row row">
+                                            <div class="col s12 m6">
+
+                                                <div class="row">
+                                                    <div class="input-field col s12" id="id_first_name_container">
+                                                        <input id="id_first_name" name="first_name" type="text">
+                                                        <label for="id_first_name">First name</label>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col s12">
+
+                                                <div class="row">
+                                                    <div class="input-field col s12" id="id_last_name_container">
+                                                        <input id="id_last_name" name="last_name" type="text">
+                                                        <label for="id_last_name">Last name</label>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="select-field col s12 required" id="id_gender_container">
+                                                <i class="material-icons prefix">wc</i><label for="id_gender">Gender</label>
+                                                <select id="id_gender" name="gender">
+            <option value></option>
+            <option value="F">Female</option>
+            <option value="M">Male</option>
+            <option value="O">Other</option>
+        </select>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="checkbox-field col s12" id="id_receive_news_container">
+                                                <input class="filled-in " id="id_receive_news" name="receive_news" type="checkbox"><label for="id_receive_news">I want to receive news and special offers</label>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="checkbox-field col s12 required" id="id_agree_toc_container">
+                                                <input class="filled-in " id="id_agree_toc" name="agree_toc" type="checkbox"><label for="id_agree_toc">I agree with the Terms and Conditions</label>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+            <button href="#!" id="reg" class="modal-action modal-close waves-effect waves-light btn" name="regbut">Submit</button>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+    <div id="map"></div>
+    <script>
+    var infoWindow;
+      function initMap() {
+        // Styles a map in night mode.
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 40.674, lng: -73.945},
+          zoom: 12,
+          styles: [
+            {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
+            {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
+            {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
+            {
+              featureType: 'administrative.locality',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'poi',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'poi.park',
+              elementType: 'geometry',
+              stylers: [{color: '#263c3f'}]
+            },
+            {
+              featureType: 'poi.park',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#6b9a76'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'geometry',
+              stylers: [{color: '#38414e'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'geometry.stroke',
+              stylers: [{color: '#212a37'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#9ca5b3'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'geometry',
+              stylers: [{color: '#746855'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'geometry.stroke',
+              stylers: [{color: '#1f2835'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#f3d19c'}]
+            },
+            {
+              featureType: 'transit',
+              elementType: 'geometry',
+              stylers: [{color: '#2f3948'}]
+            },
+            {
+              featureType: 'transit.station',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'geometry',
+              stylers: [{color: '#17263c'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#515c6d'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'labels.text.stroke',
+              stylers: [{color: '#17263c'}]
+            }
+          ]
+        });
+          
+        infoWindow = new google.maps.InfoWindow;
+          
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Location found.');
+            infoWindow.open(map);
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+      }
+    </script>
+
+    <!--
+    <iframe id="map" src="//www.google.com/maps/embed/v1/place?q=Harrods,Brompton%20Rd,%20UK
+      &zoom=17
+      &key=AIzaSyCrN9bihTaqzDErV1eGO3Bn1n56Srp87Tk">
+  </iframe>
+    -->
+
+    <!--<a href="#" id="bottomMenu" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+  
+<ul id="slide-out" class="side-nav">
+    <li><div class="user-view">
+      <div class="background">
+        <img src="images/office.jpg">
+      </div>
+      <a href="#!user"><img class="circle" src="images/yuna.jpg"></a>
+      <a href="#!name"><span class="white-text name">John Doe</span></a>
+      <a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
+    </div></li>
+    <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
+    <li><a href="#!">Second Link</a></li>
+    <li><div class="divider"></div></li>
+    <li><a class="subheader">Subheader</a></li>
+    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+  </ul>-->
+    <!--feature discovery-->
+
+   <!-- <button id="menu" type="button" class="btn btn-secondary" data-activates="slide-out" ><i class="large material-icons" style="font-size: 40px;">insert_chart</i></button>-->
+<i class="large material-icons cyan pulse" style="font-size: 40px;border-radius:5px; cursor: pointer;" data-activates="slide-out" id="menu">insert_chart</i>
+    <ul id="slide-out" class="side-nav">
+    <li><div class="user-view">
+      <div class="background">
+        <img src="images/office.jpg">
+      </div>
+      <a href="#!user"><img class="circle" src="images/yuna.jpg"></a>
+      <a href="#!name"><span class="white-text name">John Doe</span></a>
+      <a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
+    </div></li>
+    <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
+    <li><a href="#!">Second Link</a></li>
+    <li><div class="divider"></div></li>
+    <li><a class="subheader">Subheader</a></li>
+    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+  </ul>
+
+
+
+    <!-- Tap Target Structure -->
+  <!--  <div class="tap-target" data-activates="menu">
+
+        <div class="tap-target-content">
+            <h5 class="one">Title</h5>
+            <h5 class="one">Title</h5>
+            <h5 class="one">Title</h5>
+            <h5 class="one">Title</h5>
+            <h5 class="one">Title</h5>
+            <h5 class="one">Title</h5>
+
+            <p>A bunch of text</p>
+        </div>
+    </div>
+
+    <!--<input type="text" class="dp" />-->
+
+  
+    <!--Import jQuery before materialize.js-->
+    
+    <footer class="page-footer">
+        <div class="container" >
+            <p class="left valign-wrapper">&copy;Copyright to Indrajit</p>
+             <a class="right valign-wrapper" href="#"  style="float:right;color:white;">More Links</a>
+        </div>
+
+    </footer>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAX33PIYN_cifjGp3gtHDw2Vhlndoaf9QI&callback=initMap"
+    async defer></script>
+    
+</body>
+
+</html>
